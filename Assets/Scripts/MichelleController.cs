@@ -8,14 +8,35 @@ public class MichelleController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-
+    private void SetAnimation(string triggerName, bool isDancing)
+    {
+        animator.SetTrigger(triggerName);
+        animator.SetBool("IsDancing", isDancing);
+    }
     void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.C))
-            animator.SetTrigger("CatWalk");
+        {
+            ResetAnimation();
+            SetAnimation("CatWalk", false);
+        }
 
         if (Input.GetKeyDown(KeyCode.D))
-            animator.SetTrigger("Dance");
+        {
+            ResetAnimation();
+            SetAnimation("Dance", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            ResetAnimation();
+            SetAnimation("Dance", true);
+        }
+    }
+    private void ResetAnimation()
+    {
+        animator.ResetTrigger("CatWalk");
+        animator.ResetTrigger("Dance");
+        animator.SetBool("IsDancing", false);
     }
 }
